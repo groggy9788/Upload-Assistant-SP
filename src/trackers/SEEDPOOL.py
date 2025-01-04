@@ -45,25 +45,29 @@ class SEEDPOOL():
     #           *gamenight*,*darksport*,*overtake*
     ### If category is TV and meta has non-zero tv_pack, set category to BOXSET
     async def get_cat_id(self, meta):
-        category_name = meta['category']
-        release_title = meta['name']
-        # Custom SEEDPOOL category logic
+        if not isinstance(meta, dict):
+            raise TypeError('meta must be a dict when passed to Seedpool get_cat_id')
 
-        # Doing a check here means that anime movies and shows are treated as anime
-        if 'mal_id' in meta and meta['mal_id'] != 0:
-            return '6'
+        category_name = meta.get('category', '').upper()
+        release_title = meta.get('name', '')
+        mal_id = meta.get('mal_id', 0)
+        tv_pack = meta.get('tv_pack', 0)
+
+        # Custom SEEDPOOL category logic
+        if mal_id != 0:
+            return '6'  # Anime
+
+        if tv_pack != 0:
+            return '13'  # Boxset
 
         if self.contains_sports_patterns(release_title):
-            return '8' # SPORTS
+            return '8'  # Sports
 
-        if 'tv_pack' in meta and meta['tv_pack'] != 0:
-            return '13' # BOXSET
-
-        # Otherwise use the default category logic
+        # Default category logic
         category_id = {
             'MOVIE': '1',
             'TV': '2',
-            }.get(category_name, '0')
+        }.get(category_name, '0')
         return category_id
 
     # New function to check for sports releases in a title
