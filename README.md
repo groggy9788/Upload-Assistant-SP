@@ -1,3 +1,6 @@
+> [!IMPORTANT]  
+> Seedpool definitions have been merged back into Audionut's fork and this repo will no longer be maintained. Keeping as an archive for reference only. It will not receive any further updates. 
+
 [![Create and publish a Docker image](https://github.com/Audionut/Upload-Assistant/actions/workflows/docker-image.yml/badge.svg?branch=master)](https://github.com/Audionut/Upload-Assistant/actions/workflows/docker-image.yml)
 
 Discord support https://discord.gg/QHHAZu7e2A
